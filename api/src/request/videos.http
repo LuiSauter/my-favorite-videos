@@ -1,0 +1,29 @@
+@api = http://localhost:4000/api
+
+GET {{api}}/videos
+
+###
+GET {{api}}/videos/618d98970130bffc52f058e1
+
+### create a video
+POST {{api}}/videos
+Content-Type: application/json
+
+{
+  "url": "https://www.youtube.com/watch?v=JQGRg8XBnB4&list=RDJQGRg8XBnB4&start_radio=1",
+  "title": "Momoland",
+  "description": "She are beatiful!"
+}
+
+###
+DELETE {{api}}/videos/618d98970130bffc52f058e1
+
+###
+PUT  {{api}}/videos/618d9799b5ab4f80409e8071
+Content-Type: application/json
+
+{
+  "url": "https://www.youtube.com/watch?v=JQGRg8XBnB4&list=RDJQGRg8XBnB4&start_radio=1",
+  "title": "Momoland",
+  "description": "She are amazings!"
+}
