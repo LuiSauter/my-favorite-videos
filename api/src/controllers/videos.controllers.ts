@@ -6,7 +6,7 @@ export const createVideo: RequestHandler = async (req, res) => {
   const { title, description, url } = req.body
   const findUrl = await Video.findOne({url: req.body.url})
   if (findUrl) {
-    return res.status(301).json({ message: 'The URL already exists' })
+    return res.status(301).json()
   }
   const newVideo: IVideo  = new Video({title, description, url})
   const savedVideo = await newVideo.save()
@@ -15,7 +15,7 @@ export const createVideo: RequestHandler = async (req, res) => {
 
 export const getVideos: RequestHandler = async (req, res, next) => {
   try {
-    const videos: Array<IVideo>  = await Video.find({})
+    const videos: Array<IVideo>  = await Video.find({}).sort({ createdAt: 'desc' })
     res.json(videos)
   } catch (error) {
     next(error)
