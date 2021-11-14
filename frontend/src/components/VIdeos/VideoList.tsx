@@ -4,7 +4,7 @@ import { Video } from '../../interfaces/interfaces'
 import VideoContainer from './VideoContainer'
 import VideoItem from './VideoItem/VideoItem'
 
-function VideoList() {
+function VideoList(): JSX.Element {
   const {videos} = useVideos()
 
   return (

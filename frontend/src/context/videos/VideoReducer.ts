@@ -37,8 +37,6 @@ export const VideoReducer = (state: VideoState, action: Action): VideoState => {
       }
       return video
     })
-    console.log(updateVideo._id, 'recibido payload')
-    console.log(uptadetedVideo, 'actualizado')
     return {
       ...state,
       videos: uptadetedVideo

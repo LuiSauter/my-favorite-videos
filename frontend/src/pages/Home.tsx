@@ -2,7 +2,7 @@ import React from 'react'
 import VideoList from '../components/VIdeos/VideoList'
 import { useVideos } from '../hooks/useVideos'
 
-export default function Home () {
+export default function Home (): JSX.Element {
 
   const {loading} = useVideos()
 

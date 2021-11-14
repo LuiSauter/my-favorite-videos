@@ -1,3 +1,3 @@
 export const config = {
-  URL_API: 'http://localhost:4000'
+  URL_API: '/api/videos'
 }

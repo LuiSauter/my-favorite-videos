@@ -1,15 +1,14 @@
 import { config } from '../config/config'
 import { Video } from '../interfaces/interfaces'
 
-export const getVideos = async () => {
-  const res = await fetch(`${config.URL_API}/api/videos`)
+export const getVideos = async (): Promise<Video[]> => {
+  const res = await fetch(`${config.URL_API}`)
   const data = await res.json()
   return data
 }
 
-export const createVideo = async (video: Video) => {
-  if (!video) return
-  const res = await fetch(`${config.URL_API}/api/videos`, {
+export const createVideo = async (video: Video): Promise<Video> => {
+  const res = await fetch(`${config.URL_API}`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
@@ -20,18 +19,18 @@ export const createVideo = async (video: Video) => {
   return data
 }
 
-export const getVideo = async (id: string) => {
-  if (!id) return
-  const video = await fetch(`${config.URL_API}/api/videos/${id}`, {
-    method: 'GET',
-  })
-  const data = await video.json()
-  return data
-}
+// export const getVideo = async (id: string): Promise<Video>  => {
+//   if (!id) return
+//   const video = await fetch(`${config.URL_API}/${id}`, {
+//     method: 'GET',
+//   })
+//   const data = await video.json()
+//   return data
+// }
 
-export const updateVideo = async (id: string, video: Video) => {
-  if (!id) return
-  const res = await fetch(`${config.URL_API}/api/videos/${id}`, {
+export const updateVideo = async (id: string, video: Video): Promise<Video | null>=> {
+  if (!id) return null
+  const res = await fetch(`${config.URL_API}/${id}`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json'
@@ -42,9 +41,9 @@ export const updateVideo = async (id: string, video: Video) => {
   return data
 }
 
-export const deleteVideo = async (id: string) => {
-  if (!id) return
-  return await fetch(`${config.URL_API}/api/videos/${id}`, {
+export const deleteVideo = async (id: string): Promise<null> => {
+  await fetch(`${config.URL_API}/${id}`, {
     method: 'DELETE'
   })
+  return null
 }

@@ -3,7 +3,7 @@ const DEFAULT_LANGUAGE = 'es-ES'
 const isDateTimeFormatSupported =
   typeof Intl !== 'undefined' && Intl.DateTimeFormat
 
-export const formatDate = (timestamp: number, { language = DEFAULT_LANGUAGE } = {}) => {
+export const formatDate = (timestamp: number, { language = DEFAULT_LANGUAGE } = {}): string => {
   const date = new Date(timestamp)
 
   if (!isDateTimeFormatSupported) {
@@ -25,6 +25,6 @@ export const formatDate = (timestamp: number, { language = DEFAULT_LANGUAGE } = 
   }).format(date)
 }
 
-export default function useDateTimeFormat (timestamp: number) {
+export default function useDateTimeFormat (timestamp: number): string {
   return formatDate(timestamp, { language: DEFAULT_LANGUAGE })
 }

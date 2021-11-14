@@ -12,7 +12,7 @@ interface Props {
   children: JSX.Element | JSX.Element[]
 }
 
-export const VideoStateProvider = ({children}: Props) => {
+export const VideoStateProvider = ({children}: Props): JSX.Element=> {
 
   const [videoState, dispatch] = useReducer(VideoReducer, initalState)
 
@@ -28,7 +28,6 @@ export const VideoStateProvider = ({children}: Props) => {
 
   const addVideo = async (video:Video) => {
     const newVideo = await videoService.createVideo(video)
-    console.log(newVideo, 'debug new video')
     dispatch({ type: '@add-video', payload: newVideo})
   }
 

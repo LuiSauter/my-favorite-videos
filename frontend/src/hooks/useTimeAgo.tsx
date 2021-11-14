@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { formatDate } from './useDateTimeFormat'
+import {formatDate} from './useDateTimeFormat'
 
 const isRelativeTimeFormatSupported =
   typeof Intl !== 'undefined' && Intl.RelativeTimeFormat
@@ -11,7 +11,7 @@ export interface ITimeago {
   unit: string | number
 }
 
-const getDateDiffs = (timestamp: number) => {
+const getDateDiffs = (timestamp: number): ITimeago => {
   const now: number = Date.now()
   const elapsed = (timestamp - now) / 1000
 
@@ -32,7 +32,7 @@ const getDateDiffs = (timestamp: number) => {
   return {value: Math.round(elapsed), unit: 'second'}
 }
 
-export default function useTimeAgo (timestamp: number) {
+export default function useTimeAgo (timestamp: number): string {
   const [timeago, setTimeago] = useState(() => getDateDiffs(timestamp))
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function useTimeAgo (timestamp: number) {
 
   const value = Number(timeago?.value)
   const unit = String(timeago?.unit)
-  if (typeof value === 'undefined' && typeof unit === 'undefined') return
+  if (typeof value === 'undefined' && typeof unit === 'undefined') return ''
   for (const [unit, time] of DATE_UNITS) {
     const now: number = Date.now()
     const fe = (timestamp - now) / 1000
@@ -71,4 +71,5 @@ export default function useTimeAgo (timestamp: number) {
       }
     }
   }
+  return formatDate(timestamp)
 }

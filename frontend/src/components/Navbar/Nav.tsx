@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useRoute } from 'wouter'
 import NavBar from './Navbar'
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
   const [match] = useRoute('/new-video')
   return (
     <NavBar>

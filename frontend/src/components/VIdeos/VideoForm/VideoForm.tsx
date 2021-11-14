@@ -12,7 +12,7 @@ type FormSubmit = FormEvent<HTMLFormElement>
 
 const initialState = { title: '', description: '', url: '', _id: '',}
 
-function VideoForm() {
+function VideoForm(): JSX.Element {
   const [videoForm, setVideoForm] = useState<Video>(initialState)
   const {updateVideo, addVideo, videos} = useVideos()
 
@@ -26,7 +26,6 @@ function VideoForm() {
   useEffect(() => {
     if (params?.id) {
       const videoFound = videos.find(video => video._id === params.id)
-      console.log(videoFound, 'encontrado')
       if (typeof videoFound !== 'undefined') {
         const {title, description, url, _id} = videoFound
         return setVideoForm({title, description, url, _id})
