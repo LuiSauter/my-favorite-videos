@@ -2,13 +2,13 @@ import { config } from '../config/config'
 import { Video } from '../interfaces/interfaces'
 
 export const getVideos = async (): Promise<Video[]> => {
-  const res = await fetch(`${config.URL_API}`)
+  const res = await fetch(config.URL_API)
   const data = await res.json()
   return data
 }
 
 export const createVideo = async (video: Video): Promise<Video> => {
-  const res = await fetch(`${config.URL_API}`, {
+  const res = await fetch(config.URL_API, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
