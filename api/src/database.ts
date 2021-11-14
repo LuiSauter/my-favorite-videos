@@ -1,7 +1,11 @@
 import mongoose from 'mongoose'
 import config from './config/config'
 
-mongoose.connect(config.MONGO_DATABASE)
+const connectionString = config.NODE_ENVS === 'test'
+  ? config.MONGO_DATABASE_TEST
+  : config.MONGO_DATABASE
+
+mongoose.connect(connectionString)
 
 const connection = mongoose.connection
 
