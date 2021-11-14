@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import { Video } from '../../../interfaces/interfaces'
 import { useLocation } from 'wouter'
 import useTimeAgo from '../../../hooks/useTimeAgo'
@@ -19,9 +19,8 @@ export default function VideoItem({video}: Props): JSX.Element {
   const timeago = useTimeAgo(fecha)
   const [,navigate]= useLocation()
 
-  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    navigate(`/update/${video._id}`)
+  const handleUpdateVideo = (id:string) => {
+    navigate(`/update/${id}`)
   }
 
   const handleButtonDelete = (id: string) => {
@@ -33,7 +32,7 @@ export default function VideoItem({video}: Props): JSX.Element {
       <figure>
         <img
           title='See video information'
-          onClick={handleClick}
+          onClick={() => video._id && handleUpdateVideo(video._id)}
           src={`https://img.youtube.com/vi/${srcVideo}/mqdefault.jpg`} alt={video.title}
         />
       </figure>

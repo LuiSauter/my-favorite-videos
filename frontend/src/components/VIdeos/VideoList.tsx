@@ -1,7 +1,6 @@
 import React from 'react'
 import { useVideos } from '../../hooks/useVideos'
 import { Video } from '../../interfaces/interfaces'
-// import { IVideo, useVideos } from '../../hooks/useVideos'
 import VideoContainer from './VideoContainer'
 import VideoItem from './VideoItem/VideoItem'
 

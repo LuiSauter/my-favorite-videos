@@ -1,59 +1,62 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import {toast} from 'react-toastify'
 import {useLocation, useRoute} from 'wouter'
 
-import * as videoService from '../../../services/videoService'
-// import { IVideo } from '../../../hooks/useVideos'
+import { useVideos } from '../../../hooks/useVideos'
+import { Video } from '../../../interfaces/interfaces'
 import CardForm from './CardForm'
 import yt from '../../../assets/yt.svg'
-import { Video } from '../../../interfaces/interfaces'
 
 type InputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 type FormSubmit = FormEvent<HTMLFormElement>
 
-const initialState = { title: '', description: '', url: '' }
+const initialState = { title: '', description: '', url: '', _id: '',}
 
 function VideoForm() {
-  const [video, setVideo] = useState<Video>(initialState)
+  const [videoForm, setVideoForm] = useState<Video>(initialState)
+  const {updateVideo, addVideo, videos} = useVideos()
+
   const [, navigate] = useLocation()
   const [, params] = useRoute('/update/:id')
 
   const handleInputChange = (e: InputChange) => {
-    setVideo({...video, [e.target.name]: e.target.value})
+    setVideoForm({...videoForm, [e.target.name]: e.target.value})
   }
 
-  // const getOneVideo = async (id: string) => {
-  //   const res = await videoService.getVideo(id)
-  //   const { title, description, url } = res
-  //   setVideo({ title, description, url })
-  // }
-
-  // useEffect(() => {
-  //   if (params?.id) getOneVideo(params.id)
-  // }, [params?.id])
+  useEffect(() => {
+    if (params?.id) {
+      const videoFound = videos.find(video => video._id === params.id)
+      console.log(videoFound, 'encontrado')
+      if (typeof videoFound !== 'undefined') {
+        const {title, description, url, _id} = videoFound
+        return setVideoForm({title, description, url, _id})
+      }
+    }
+  }, [params?.id, videos])
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()
-    if (video === initialState || !video.url || !video.title) return
+    if (videoForm === initialState || !videoForm.url || !videoForm.title) return
     if (!params?.id) {
-      videoService.createVideo(video)
+      const {title, description, url} = videoForm
+      addVideo({title, description, url})
       toast.success('New video added')
     } else {
-      videoService.updateVideo(params.id, video)
+      updateVideo(params.id, videoForm)
     }
     navigate('/')
   }
 
-  const srcVideo = video.url.substring(32,43)
+  const srcVideo = videoForm.url.substring(32,43)
 
   return (
     <CardForm>
       <figure>
         {
-          video.url
+          videoForm.url
             ? <iframe
               src={`https://www.youtube.com/embed/${srcVideo}`}
-              title={video.title}
+              title={videoForm.title}
               frameBorder='0'
               allowFullScreen
             />
@@ -71,7 +74,7 @@ function VideoForm() {
             name='title'
             placeholder='Wrtie a title'
             autoFocus
-            value={video.title}
+            value={videoForm.title}
             onChange={handleInputChange}
           />
         </label>
@@ -81,7 +84,7 @@ function VideoForm() {
             type='text'
             name='url'
             placeholder='youtube.com/example'
-            value={video.url}
+            value={videoForm.url}
             onChange={handleInputChange}
           />
         </label>
@@ -91,14 +94,14 @@ function VideoForm() {
             rows={3}
             name='description'
             placeholder='Write a description'
-            value={video.description}
+            value={videoForm.description}
             onChange={handleInputChange}
           />
         </label>
         {
           params?.id
-            ? <button disabled={video.url.length === 0}>Update</button>
-            : <button disabled={video.url.length === 0}>Create</button>
+            ? <button disabled={videoForm.url.length === 0}>Update</button>
+            : <button disabled={videoForm.url.length === 0}>Create</button>
         }
       </form>
     </CardForm>
