@@ -9,7 +9,9 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build --workspace=frontend",
+    "start": "npm run start --workspace=api",
+    "dev:api": "npm run build && npm run dev --workspace=api",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
