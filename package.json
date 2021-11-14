@@ -30,7 +30,7 @@
     "typescript": "^4.4.4"
   },
   "eslintConfig": {
-    "ignorePatterns": "build",
+    "ignorePatterns": "build and dist",
     "extends": [
       "react-app",
       "react-app/jest"
