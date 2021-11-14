@@ -1,14 +1,11 @@
 import { createContext } from 'react'
-import { VideoState } from '../../interfaces/interfaces'
-// import { Dispatch, State } from './VideoReducer'
-
-// const VideoContext = createContext<
-//   { state: State; dispatch: Dispatch;} | undefined
-// >(undefined)
+import { Video, VideoState } from '../../interfaces/interfaces'
 
 export type ViodeContextProps = {
   videoState: VideoState
   deleteVideo: (id: string) => void
+  updateVideo: (id: string, video: Video) => void
+  addVideo: (video: Video) => void
 }
 
 export const VideoContext = createContext<ViodeContextProps>({} as ViodeContextProps)

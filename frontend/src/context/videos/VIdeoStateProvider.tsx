@@ -20,19 +20,30 @@ export const VideoStateProvider = ({children}: Props) => {
     if (videoState.videos.length === 0) {
       videoService.getVideos().then((data)=> {
         data.map((videos:Video) => {
-          dispatch({ type: '@add-video', payload: videos})
+          dispatch({ type: '@add-video-order', payload: videos})
         })
       })
     }
   }, [videoState.videos.length])
+
+  const addVideo = async (video:Video) => {
+    const newVideo = await videoService.createVideo(video)
+    console.log(newVideo, 'debug new video')
+    dispatch({ type: '@add-video', payload: newVideo})
+  }
 
   const deleteVideo = async (id:string) => {
     await videoService.deleteVideo(id)
     dispatch({type: '@delete-video', payload: {id}})
   }
 
+  const updateVideo = async (id: string, video: Video) => {
+    await videoService.updateVideo(id, video)
+    dispatch({type: '@update-video', payload: video})
+  }
+
   return (
-    <VideoContext.Provider value={{ videoState, deleteVideo }}>
+    <VideoContext.Provider value={{ videoState, deleteVideo, updateVideo, addVideo }}>
       {children}
     </VideoContext.Provider>
   )
