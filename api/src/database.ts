@@ -13,17 +13,3 @@ connection.on('error', (err) => {
   console.log(err)
   process.exit(0)
 })
-
-// (async () => {
-//   try {
-//     await connect(config.MONGO_DATABASE)
-//     console.log('data base is connected')
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })()
-
-// process.on('error', (err) => {
-//   console.log(err)
-//   disconnect()
-// })

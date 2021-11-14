@@ -20,6 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(passport.initialize())
 passport.use(passportMiddleware)
+app.use(express.static('../frontend/build'))
 // routes
 app.use('/api', videosRouter)
 app.use('/user', authRoutes)
