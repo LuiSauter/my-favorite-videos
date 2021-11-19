@@ -3,14 +3,14 @@ const router = Router()
 
 import * as videoCtrl from '../controllers/videos.controllers'
 
-router.post('/videos', videoCtrl.createVideo)
+router.get('/', videoCtrl.getVideos)
 
-router.get('/videos', videoCtrl.getVideos)
+router.post('/', videoCtrl.createVideo)
 
-router.get('/videos/:id', videoCtrl.getOneVideo)
+router.get('/:id', videoCtrl.getOneVideo)
 
-router.delete('/videos/:id', videoCtrl.deleteVideos)
+router.delete('/:id', videoCtrl.deleteVideos)
 
-router.put('/videos/:id', videoCtrl.updateVideo)
+router.put('/:id', videoCtrl.updateVideo)
 
 export default router
