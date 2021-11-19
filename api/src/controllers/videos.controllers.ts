@@ -4,6 +4,7 @@ import { IVideo } from '../Interfaces/IVideo'
 
 export const createVideo: RequestHandler = async (req, res) => {
   const { title, description, url } = req.body
+  if (!title || !url) return res.sendStatus(400)
   const findUrl = await Video.findOne({url: req.body.url})
   if (findUrl) {
     return res.status(301).json()
@@ -13,13 +14,12 @@ export const createVideo: RequestHandler = async (req, res) => {
   res.json(savedVideo)
 }
 
-export const getVideos: RequestHandler = async (req, res, next) => {
-  try {
-    const videos: Array<IVideo>  = await Video.find({}).sort({ createdAt: 'desc' })
-    res.json(videos)
-  } catch (error) {
-    next(error)
-  }
+export const getVideos: RequestHandler = (req, res) => {
+  Video.find({})
+    .sort({ createdAt: 'desc' })
+    .then((videos) => {
+      res.json(videos)
+    })
 }
 
 export const deleteVideos: RequestHandler = async (req, res) => {
