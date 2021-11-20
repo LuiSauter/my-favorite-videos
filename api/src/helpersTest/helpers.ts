@@ -21,6 +21,17 @@ export const initialVideos = [
   }
 ]
 
+export const initialUsers = [
+  {
+    email: 'sauter@gmail.com',
+    password: 'sauterdev'
+  },
+  {
+    email: 'luis@gmail.com',
+    password: 'luisdev'
+  }
+]
+
 export const getAllContentFromVideos = async ()  => {
   const response = await api.get('/api/videos').send()
   return {
