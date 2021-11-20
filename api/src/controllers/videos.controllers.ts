@@ -14,12 +14,9 @@ export const createVideo: RequestHandler = async (req, res) => {
   res.json(savedVideo)
 }
 
-export const getVideos: RequestHandler = (req, res) => {
-  Video.find({})
-    .sort({ createdAt: 'desc' })
-    .then((videos) => {
-      res.json(videos)
-    })
+export const getVideos: RequestHandler = async (req, res) => {
+  const allVideos = await Video.find({}).sort({ createdAt: 'desc' })
+  res.json(allVideos)
 }
 
 export const deleteVideos: RequestHandler = async (req, res) => {
