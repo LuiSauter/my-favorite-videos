@@ -7,11 +7,16 @@ jest.useFakeTimers('legacy')
 
 beforeEach(async () => {
   await Video.deleteMany({})
-  const video1 = new Video(initialVideos[0])
-  await video1.save()
-
-  const video2 = new Video(initialVideos[1])
-  await video2.save()
+  /**
+  * const videosObject = initialVideos.map(video => new Video(video))
+  * const promises = videosObject.map(video => video.save())
+  * Promise.all(promises)
+  */
+  // best controll or correct use
+  for(const video of initialVideos) {
+    const videoObject = new Video(video)
+    await videoObject.save()
+  }
 })
 
 describe('GET /api/videos', () => {
@@ -80,6 +85,22 @@ describe('POST /api/videos', () => {
       }
     })
   })
+})
+
+describe('DELETE /api/videos', () => {
+  test('a video can be deleted', async () => {
+    // const {response: firstResponse} = await getAllContentFromVideos()
+    // const {body: videos} = firstResponse
+    // const videoToDelete = videos[0]
+    await api
+      .delete('/api/videos/123124')
+      .expect(400)
+    const {response: secondResponse} = await getAllContentFromVideos()
+    expect(secondResponse.body).toHaveLength(initialVideos.length)
+
+    // expect(contents).not.toContain(videoToDelete.content)
+  })
+
 })
 
 // afterEach(() => mongoose.disconnect())

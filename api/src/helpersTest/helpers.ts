@@ -11,8 +11,13 @@ export const initialVideos = [
   },
   {
     title: 'Testing for videos 2',
-    url: 'https://www.youtube.com/watch?v=8DowcVNF0Lk',
+    url: 'https://www.youtube.com/watch?v=vMLk_T0PPbk&list=RDvMLk_T0PPbk&index=1',
     description: 'This is a video for test 2'
+  },
+  {
+    title: 'Testing for videos 3',
+    url: 'https://www.youtube.com/watch?v=8DowcVNF0Lk',
+    description: 'This is a video for test 3'
   }
 ]
 
