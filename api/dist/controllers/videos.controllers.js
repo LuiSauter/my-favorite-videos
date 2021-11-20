@@ -16,6 +16,8 @@ exports.updateVideo = exports.getOneVideo = exports.deleteVideos = exports.getVi
 const video_1 = __importDefault(require("../models/video"));
 const createVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, url } = req.body;
+    if (!title || !url)
+        return res.sendStatus(400);
     const findUrl = yield video_1.default.findOne({ url: req.body.url });
     if (findUrl) {
         return res.status(301).json();
@@ -25,37 +27,50 @@ const createVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     res.json(savedVideo);
 });
 exports.createVideo = createVideo;
-const getVideos = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const videos = yield video_1.default.find({}).sort({ createdAt: 'desc' });
-        res.json(videos);
-    }
-    catch (error) {
-        next(error);
-    }
+const getVideos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const allVideos = yield video_1.default.find({}).sort({ createdAt: 'desc' });
+    res.json(allVideos);
 });
 exports.getVideos = getVideos;
 const deleteVideos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const videoFound = yield video_1.default.findByIdAndDelete(req.params.id);
-    if (!videoFound)
-        return res.status(204).json({});
-    return res.json(videoFound);
+    try {
+        const videoFound = yield video_1.default.findByIdAndDelete(req.params.id);
+        if (!videoFound)
+            return res.status(204).json({});
+        return res.json(videoFound);
+    }
+    catch (error) {
+        res.status(400).send({ err: 'id used is malformed' });
+        console.error(error);
+    }
 });
 exports.deleteVideos = deleteVideos;
 const getOneVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const oneVideoFound = yield video_1.default.findById(id);
-    if (!oneVideoFound) {
-        return res.status(204).json({ error: 'not found video' });
+    try {
+        const { id } = req.params;
+        const oneVideoFound = yield video_1.default.findById(id);
+        if (!oneVideoFound) {
+            return res.status(204).json({ error: 'not found video' });
+        }
+        res.status(200).json(oneVideoFound);
     }
-    res.json(oneVideoFound);
+    catch (error) {
+        res.status(400).send({ err: 'id used is malformed' });
+        console.error(error);
+    }
 });
 exports.getOneVideo = getOneVideo;
 const updateVideo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const videoFound = yield video_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!videoFound) {
-        return res.status(204).json({});
+    try {
+        const videoFound = yield video_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!videoFound) {
+            return res.status(204).json({});
+        }
+        res.status(200).json(videoFound);
     }
-    res.json(videoFound);
+    catch (error) {
+        res.status(400).send({ err: 'id used is malformed' });
+        console.error(error);
+    }
 });
 exports.updateVideo = updateVideo;

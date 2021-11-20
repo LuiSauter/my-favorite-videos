@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
-import { server } from '../src'
-import Video from '../src/models/video'
-import User from '../src/models/user'
-import { api, getAllContentFromVideos, initialVideos, initialUsers } from '../src/helpersTest/helpers'
+import { server } from '..'
+import Video from '../models/video'
+import User from '../models/user'
+import { api, getAllContentFromVideos, initialVideos, initialUsers } from '../helpersTest/helpers'
 
 jest.useFakeTimers('legacy')
 
