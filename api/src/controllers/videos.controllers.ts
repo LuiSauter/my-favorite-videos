@@ -26,23 +26,33 @@ export const deleteVideos: RequestHandler = async (req, res) => {
     return res.json(videoFound)
   } catch (error) {
     res.status(400).send({ err: 'id used is malformed' })
-    console.log(error)
+    console.error(error)
   }
 }
 
 export const getOneVideo: RequestHandler = async (req, res) => {
-  const {id} = req.params
-  const oneVideoFound = await Video.findById(id)
-  if (!oneVideoFound) {
-    return res.status(204).json({ error: 'not found video' })
+  try {
+    const {id} = req.params
+    const oneVideoFound = await Video.findById(id)
+    if (!oneVideoFound) {
+      return res.status(204).json({ error: 'not found video' })
+    }
+    res.status(200).json(oneVideoFound)
+  } catch (error) {
+    res.status(400).send({ err: 'id used is malformed' })
+    console.error(error)
   }
-  res.status(200).json(oneVideoFound)
 }
 
 export const updateVideo: RequestHandler = async (req, res) => {
-  const videoFound = await Video.findByIdAndUpdate(req.params.id, req.body, {new: true})
-  if (!videoFound) {
-    return res.status(204).json({})
+  try {
+    const videoFound = await Video.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    if (!videoFound) {
+      return res.status(204).json({})
+    }
+    res.status(200).json(videoFound)
+  } catch (error) {
+    res.status(400).send({ err: 'id used is malformed'})
+    console.error(error)
   }
-  res.json(videoFound)
 }
