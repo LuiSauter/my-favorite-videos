@@ -3,34 +3,23 @@ import config from './config/config'
 
 const connectionString = config.NODE_ENVS === 'test' ? config.MONGO_DATABASE_TEST : config.MONGO_DATABASE
 
+export default async function connect() {
+  const db = connectionString
+  const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  } as mongoose.ConnectOptions
+  await mongoose.connect(db, options)
 
-// (async () => {
-//   try {
-//     const db = await mongoose.connect(connectionString, {useNewUrlParser: true})
-//     console.log('Database is connected to:', db.connection.name)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })()
+  const connection = mongoose.connection
 
-async function connect() {
-  try {
-    await mongoose.connect(connectionString)
+  connection.once('open', () => {
     console.log('mongoDB connection stablisehd')
-  } catch (err) {
-    return console.error(err)
-  }
+  })
+  connection.on('error', (err) => {
+    console.log(err)
+    process.exit(0)
+
+  })
 }
-
-export default connect
-
-// const connection = mongoose.connection
-
-// connection.once('open', () => {
-//   console.log('mongoDB connection stablisehd')
-// })
-
-// connection.on('error', (err) => {
-//   console.log(err)
-//   process.exit(0)
-// })
+connect()

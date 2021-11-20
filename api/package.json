@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node dist/index.js",
     "build": "tsc",
     "dev": "NODE_ENV=test ts-node-dev src/index.ts",
-    "test": "NODE_ENV=test jest --forceExit --silent --detectOpenHandles",
+    "test": "NODE_ENV=test jest --forceExit --silent",
     "test:watch": "npm run test -- --watch"
   },
   "keywords": [],
