@@ -1,14 +1,13 @@
 import mongoose from 'mongoose'
-import { server } from '..'
+
 import Video from '../models/video'
-import User from '../models/user'
-import { api, getAllContentFromVideos, initialVideos, initialUsers } from '../helpersTest/helpers'
+import { api, getAllContentFromVideos, initialVideos } from '../helpersTest/helpers'
+import { server } from '..'
 
 jest.useFakeTimers('legacy')
 
 beforeEach(async () => {
   await Video.deleteMany({})
-  await User.deleteMany({})
   /**
   * const videosObject = initialVideos.map(video => new Video(video))
   * const promises = videosObject.map(video => video.save())
@@ -18,10 +17,6 @@ beforeEach(async () => {
   for(const video of initialVideos) {
     const videoObject = new Video(video)
     await videoObject.save()
-  }
-  for(const user of initialUsers) {
-    const userObject = new User(user)
-    await userObject.save()
   }
 })
 
@@ -150,40 +145,6 @@ describe('GET /api/videos/:id', () => {
       .expect('Content-Type', /application\/json/)
   })
 })
-
-describe('POST /user/signup && /user/signin', () => {
-  const newUser = {
-    email: 'gabriel@gmail.com',
-    password: 'gabrieldev'
-  }
-  test('given a eamil and password', async () => {
-    await api
-      .post('/user/signup')
-      .send(newUser)
-      .expect(201)
-      .expect('Content-Type', /application\/json/)
-    const response = await api.get('/user/all').send()
-    expect(response.body).toHaveLength(initialUsers.length + 1)
-  })
-  test('should respond 200 status code when user log in', async () => {
-    await api
-      .post('/user/signin')
-      .send({
-        email: 'sauter@gmail.com',
-        password: 'sauterdev'
-      })
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
-  })
-  test('should respond with a status code 200', async () => {
-    await api
-      .get('/user/all')
-      .send()
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
-  })
-})
-
 // afterEach(() => mongoose.disconnect())
 afterAll(async () => {
   await mongoose.connection.close(true)
