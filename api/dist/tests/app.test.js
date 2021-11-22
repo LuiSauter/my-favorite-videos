@@ -13,14 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const __1 = require("..");
 const video_1 = __importDefault(require("../models/video"));
-const user_1 = __importDefault(require("../models/user"));
 const helpers_1 = require("../helpersTest/helpers");
+const __1 = require("..");
 jest.useFakeTimers('legacy');
 beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
     yield video_1.default.deleteMany({});
-    yield user_1.default.deleteMany({});
     /**
     * const videosObject = initialVideos.map(video => new Video(video))
     * const promises = videosObject.map(video => video.save())
@@ -30,10 +28,6 @@ beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
     for (const video of helpers_1.initialVideos) {
         const videoObject = new video_1.default(video);
         yield videoObject.save();
-    }
-    for (const user of helpers_1.initialUsers) {
-        const userObject = new user_1.default(user);
-        yield userObject.save();
     }
 }));
 describe('GET /api/videos', () => {
@@ -149,38 +143,6 @@ describe('GET /api/videos/:id', () => {
         const { _id } = response.body[0];
         yield helpers_1.api
             .get(`/api/videos/${_id}`)
-            .expect(200)
-            .expect('Content-Type', /application\/json/);
-    }));
-});
-describe('POST /user/signup && /user/signin', () => {
-    const newUser = {
-        email: 'gabriel@gmail.com',
-        password: 'gabrieldev'
-    };
-    test('given a eamil and password', () => __awaiter(void 0, void 0, void 0, function* () {
-        yield helpers_1.api
-            .post('/user/signup')
-            .send(newUser)
-            .expect(201)
-            .expect('Content-Type', /application\/json/);
-        const response = yield helpers_1.api.get('/user/all').send();
-        expect(response.body).toHaveLength(helpers_1.initialUsers.length + 1);
-    }));
-    test('should respond 200 status code when user log in', () => __awaiter(void 0, void 0, void 0, function* () {
-        yield helpers_1.api
-            .post('/user/signin')
-            .send({
-            email: 'sauter@gmail.com',
-            password: 'sauterdev'
-        })
-            .expect(200)
-            .expect('Content-Type', /application\/json/);
-    }));
-    test('should respond with a status code 200', () => __awaiter(void 0, void 0, void 0, function* () {
-        yield helpers_1.api
-            .get('/user/all')
-            .send()
             .expect(200)
             .expect('Content-Type', /application\/json/);
     }));

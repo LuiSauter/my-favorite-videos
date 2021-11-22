@@ -21,11 +21,14 @@ app.set('port', config_1.default.PORT);
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
-app.use(express_1.default.static('../frontend/build'));
+// app.use(express.static('../frontend/build'))
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(passport_1.default.initialize());
 passport_1.default.use(passport_2.default);
 // routes
+app.get('/', (req, res) => {
+    res.send('<h1>FAVORITE VIDEOS - API - SAUTERDEV</h1>');
+});
 app.use('/api/videos', videos_routes_1.default);
 app.use('/user', auth_routes_1.default);
 app.use('/spc', special_routes_1.default);
