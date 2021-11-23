@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const VideoContainer = styled.section`
+export const VideoContainer = styled.section`
   width: 97%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -13,5 +13,3 @@ const VideoContainer = styled.section`
     width: 100%;
   }
 `
-
-export default VideoContainer

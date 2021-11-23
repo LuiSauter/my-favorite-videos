@@ -7,12 +7,12 @@ export default function Navbar(): JSX.Element {
   return (
     <NavBar>
       <header>
-        <Link to='/'>My Favorite Videos</Link>
+        <Link to='/'>Mis Videos Favoritos</Link>
       </header>
       <ul>
         {
           !match && <li>
-            <Link to='/new-video'>Create new video</Link>
+            <Link to='/new-video'>Crear</Link>
           </li>
         }
       </ul>

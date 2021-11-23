@@ -5,17 +5,24 @@ const CardForm = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   justify-content: center;
   height: 100%;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   figure {
-    display: grid;
-    place-content: center;
-    place-items: center;
+    display: flex;
+    width: 90%;
+    height: 100%;
+    margin: auto auto;
     img {
+      margin: auto;
       width: 100%;
       min-height: 200px;
       max-height: 250px;
       user-select: none;
+    }
+    iframe {
+      margin: auto;
+      width: 100%;
+      height: 100%;
     }
   }
   form {
@@ -62,10 +69,24 @@ const CardForm = styled.section`
     }
   }
 
+  @media screen and (min-width: 500px) {
+    figure {
+      width: 100%;
+      iframe {
+        height: 300px;
+      }
+    }
+  }
+
   @media screen and (max-width:535px) {
     width: 100%;
     figure {
-      margin: 0 1.2rem;
+      /* margin: -0px; */
+      width: 100%;
+      /* margin: 0 1.2rem; */
+      iframe {
+        min-height: 200px;
+      }
     }
   }
 `

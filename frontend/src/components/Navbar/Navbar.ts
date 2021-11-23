@@ -3,7 +3,8 @@ import styled from 'styled-components'
 const NavBar = styled.nav`
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #ffffffdd;
+  backdrop-filter: blur(10px);
   will-change: scroll-position;
   display: flex;
   justify-content: space-between;
@@ -11,8 +12,15 @@ const NavBar = styled.nav`
   padding: .7rem  1rem;
   margin-bottom: 1rem;
   height: 54px;
-  a {
-    /* color: #0099ff; */
+  z-index: 10;
+  header a {
+    color: #000000;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom .2s linear;
+    padding-bottom: 2px;
+    &:hover {
+      border-bottom: 2px solid #000;
+    }
   }
   ul {
     display: flex;

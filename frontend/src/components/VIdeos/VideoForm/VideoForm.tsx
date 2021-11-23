@@ -30,6 +30,8 @@ function VideoForm(): JSX.Element {
         const {title, description, url, _id} = videoFound
         return setVideoForm({title, description, url, _id})
       }
+    } else {
+      setVideoForm(initialState)
     }
   }, [params?.id, videos])
 
@@ -51,27 +53,27 @@ function VideoForm(): JSX.Element {
   return (
     <CardForm>
       <figure>
-        {
-          videoForm.url
-            ? <iframe
-              src={`https://www.youtube.com/embed/${srcVideo}`}
-              title={videoForm.title}
-              frameBorder='0'
-              allowFullScreen
-            />
-            : <img src={yt} alt='my favorite videos - dev: sauterdev' />
-        }
+        {videoForm.url ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${srcVideo}`}
+            title={videoForm.title}
+            frameBorder='0'
+            allowFullScreen
+          />
+        ) : (
+          <img src={yt} alt='my favorite videos - dev: sauterdev' />
+        )}
       </figure>
       <form onSubmit={handleSubmit}>
         <header>
-          <h2>New Video</h2>
+          <h2>Nuevo Video</h2>
         </header>
         <label>
-          Title <span>*</span>
+          Título <span>*</span>
           <input
             type='text'
             name='title'
-            placeholder='Wrtie a title'
+            placeholder='Escribe un título'
             autoFocus
             value={videoForm.title}
             onChange={handleInputChange}
@@ -82,26 +84,26 @@ function VideoForm(): JSX.Element {
           <input
             type='text'
             name='url'
-            placeholder='youtube.com/example'
+            placeholder='youtube.com/ejemplo'
             value={videoForm.url}
             onChange={handleInputChange}
           />
         </label>
         <label>
-          Description <span>*</span>
+          Descripción <span>*</span>
           <textarea
             rows={3}
             name='description'
-            placeholder='Write a description'
+            placeholder='Escribe una descripción'
             value={videoForm.description}
             onChange={handleInputChange}
           />
         </label>
-        {
-          params?.id
-            ? <button disabled={videoForm.url.length === 0}>Update</button>
-            : <button disabled={videoForm.url.length === 0}>Create</button>
-        }
+        {params?.id ? (
+          <button disabled={videoForm.url.length === 0}>Actualizar</button>
+        ) : (
+          <button disabled={videoForm.url.length === 0}>Crear</button>
+        )}
       </form>
     </CardForm>
   )
