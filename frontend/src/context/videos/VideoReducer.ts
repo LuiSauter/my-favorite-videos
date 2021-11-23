@@ -5,6 +5,7 @@ type Action =
   | {type: '@add-video-order', payload: Video }
   | {type: '@delete-video', payload: {id: string} }
   | {type: '@update-video', payload: Video }
+  | {type: '@loading', payload: boolean }
 
 export type Dispatch = (action: Action) => void
 
@@ -40,6 +41,12 @@ export const VideoReducer = (state: VideoState, action: Action): VideoState => {
     return {
       ...state,
       videos: uptadetedVideo
+    }
+  }
+  case '@loading': {
+    return {
+      ...state,
+      loading: action.payload
     }
   }
   default:

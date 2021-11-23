@@ -5,7 +5,8 @@ import { VideoContext } from './VideoContext'
 import { VideoReducer } from './VideoReducer'
 
 export const initalState: VideoState = {
-  videos: []
+  videos: [],
+  loading: false
 }
 
 interface Props {
@@ -18,10 +19,12 @@ export const VideoStateProvider = ({children}: Props): JSX.Element=> {
 
   useEffect(() => {
     if (videoState.videos.length === 0) {
+      dispatch({ type: '@loading', payload: true })
       videoService.getVideos().then((data)=> {
         data.map((videos:Video) => {
           dispatch({ type: '@add-video-order', payload: videos})
         })
+        dispatch({ type: '@loading', payload: false })
       })
     }
   }, [videoState.videos.length])
@@ -42,7 +45,15 @@ export const VideoStateProvider = ({children}: Props): JSX.Element=> {
   }
 
   return (
-    <VideoContext.Provider value={{ videoState, deleteVideo, updateVideo, addVideo }}>
+    <VideoContext.Provider
+      value={{
+        videoState,
+        deleteVideo,
+        updateVideo,
+        addVideo,
+        loading: videoState.loading,
+      }}
+    >
       {children}
     </VideoContext.Provider>
   )
