@@ -1,32 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Route, Switch } from 'wouter'
 import reportWebVitals from './reportWebVitals'
 
-import VideoForm from './components/VIdeos/VideoForm/VideoForm'
-import Home from './pages/Home'
-import Nav from './components/Navbar/Nav'
-
-import {ToastContainer} from 'react-toastify'
-
-import { Layout } from './styles/Layout'
-import GlobalStyle from './styles/GlobalStyle'
 import 'react-toastify/dist/ReactToastify.css'
 import { VideoStateProvider } from './context/videos/VIdeoStateProvider'
+import App from './App'
 
 ReactDOM.render(
   <React.StrictMode>
     <VideoStateProvider>
-      <GlobalStyle />
-      <Layout>
-        <Nav />
-        <Switch>
-          <Route path='/' component={Home} />
-          <Route path='/new-video' component={VideoForm} />
-          <Route path='/update/:id' component={VideoForm} />
-        </Switch>
-        <ToastContainer />
-      </Layout>
+      <App />
     </VideoStateProvider>
   </React.StrictMode>,
   document.getElementById('root')
