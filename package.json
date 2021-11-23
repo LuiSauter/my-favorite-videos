@@ -22,7 +22,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.20.37",
-    "@types/styled-components": "^5.1.15",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "eslint-plugin-react": "^7.27.0",
@@ -35,8 +34,5 @@
       "react-app",
       "react-app/jest"
     ]
-  },
-  "dependencies": {
-    "styled-components": "^5.3.3"
   }
 }
