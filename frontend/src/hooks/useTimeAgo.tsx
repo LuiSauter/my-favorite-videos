@@ -71,5 +71,5 @@ export default function useTimeAgo (timestamp: number): string {
       }
     }
   }
-  return formatDate(timestamp)
+  return rtf.format(-1, 'second')
 }
