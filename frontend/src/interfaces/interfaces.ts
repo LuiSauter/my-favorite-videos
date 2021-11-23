@@ -9,4 +9,5 @@ export interface Video {
 
 export interface VideoState {
   videos: Video[]
+  loading: boolean
 }
