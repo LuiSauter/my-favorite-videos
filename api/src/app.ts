@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
@@ -17,14 +18,17 @@ app.set('port', config.PORT)
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
-// app.use(express.static('../frontend/build'))
+app.use(express.static('../frontend/build'))
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'))
+})
 app.use(express.urlencoded({extended: false}))
 app.use(passport.initialize())
 passport.use(passportMiddleware)
 // routes
-app.get('/', (req,res) => {
-  res.send('<h1>FAVORITE VIDEOS - API - SAUTERDEV</h1>')
-})
+// app.get('/', (req,res) => {
+//   res.send('<h1>FAVORITE VIDEOS - API - SAUTERDEV</h1>')
+// })
 app.use('/api/videos', videosRouter)
 app.use('/user', authRoutes)
 app.use('/spc', specialRoutes)
