@@ -9,7 +9,6 @@ import passportMiddleware from './middlewares/passport'
 import videosRouter from './routes/videos.routes'
 import authRoutes from './routes/auth.routes'
 import specialRoutes from './routes/special.routes'
-// import Video from './models/video'
 // initializations
 const app = express()
 // settings
