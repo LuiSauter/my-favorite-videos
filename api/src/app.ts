@@ -18,8 +18,24 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.static('../frontend/build'))
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'))
+app.get('/', (req, res) => {
+  const params = req.path
+  console.log(params)
+  if (params !== '/api/videos') {
+    res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'))
+  }
+})
+app.get('/new-video', (req, res) => {
+  const params = req.path
+  console.log(params)
+  if (params !== '/api/videos') {
+    res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'))
+  }
+})
+app.get('/update/:id', (req, res) => {
+  if (req.path !== '/api/videos') {
+    res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'))
+  }
 })
 app.use(express.urlencoded({extended: false}))
 app.use(passport.initialize())

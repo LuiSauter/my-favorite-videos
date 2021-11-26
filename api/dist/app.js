@@ -22,8 +22,24 @@ app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
 app.use(express_1.default.static('../frontend/build'));
-app.get('*', (req, res) => {
-    res.sendFile(path_1.default.resolve(__dirname, '../../frontend/build', 'index.html'));
+app.get('/', (req, res) => {
+    const params = req.path;
+    console.log(params);
+    if (params !== '/api/videos') {
+        res.sendFile(path_1.default.resolve(__dirname, '../../frontend/build', 'index.html'));
+    }
+});
+app.get('/new-video', (req, res) => {
+    const params = req.path;
+    console.log(params);
+    if (params !== '/api/videos') {
+        res.sendFile(path_1.default.resolve(__dirname, '../../frontend/build', 'index.html'));
+    }
+});
+app.get('/update/:id', (req, res) => {
+    if (req.path !== '/api/videos') {
+        res.sendFile(path_1.default.resolve(__dirname, '../../frontend/build', 'index.html'));
+    }
 });
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(passport_1.default.initialize());

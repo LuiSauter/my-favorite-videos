@@ -19,15 +19,6 @@ export const createVideo = async (video: Video): Promise<Video> => {
   return data
 }
 
-// export const getVideo = async (id: string): Promise<Video>  => {
-//   if (!id) return
-//   const video = await fetch(`${config.URL_API}/${id}`, {
-//     method: 'GET',
-//   })
-//   const data = await video.json()
-//   return data
-// }
-
 export const updateVideo = async (id: string, video: Video): Promise<Video | null>=> {
   if (!id) return null
   const res = await fetch(`${config.URL_API}/${id}`, {
